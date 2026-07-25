@@ -1,0 +1,128 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+
+<Layout
+  title="Projetos | ECOGIS"
+  description="Conheça os projetos desenvolvidos pela ECOGIS Soluções Ambientais."
+>
+  <Header />
+
+  <main>
+    <section class="pagina">
+      <div class="container-pagina">
+
+        <p class="etiqueta">
+          PROJETOS
+        </p>
+
+        <h1>
+          Projetos construídos com ciência, planejamento e aplicação prática.
+        </h1>
+
+        <p class="introducao">
+          A ECOGIS desenvolve e participa de projetos ambientais voltados à
+          conservação da biodiversidade, monitoramento de fauna e flora,
+          geoprocessamento, análise de dados, educação ambiental e planejamento
+          territorial.
+        </p>
+
+        <div class="bloco">
+
+          <h2>
+            Nossos projetos
+          </h2>
+
+          <p>
+            Nesta página serão apresentados projetos executados, estudos
+            técnicos, trabalhos de monitoramento, ações de educação ambiental,
+            análises espaciais e outras iniciativas desenvolvidas pela ECOGIS
+            e por sua equipe técnica.
+          </p>
+
+          <p>
+            Cada projeto será apresentado com informações sobre objetivos,
+            área de atuação, metodologias utilizadas, resultados e registros
+            fotográficos.
+          </p>
+
+        </div>
+
+        <div class="aviso">
+          <strong>Em atualização.</strong>
+          Os projetos serão adicionados gradualmente.
+        </div>
+
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .pagina {
+    min-height: 80vh;
+    padding: 110px 8%;
+    background: #ffffff;
+  }
+
+  .container-pagina {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .etiqueta {
+    margin: 0 0 1.5rem;
+    color: var(--verde-principal);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+  }
+
+  h1 {
+    max-width: 850px;
+    margin: 0 0 2rem;
+    color: var(--verde-escuro);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+  }
+
+  .introducao,
+  .bloco p {
+    max-width: 760px;
+    color: var(--texto-claro);
+    font-size: 1.08rem;
+    line-height: 1.8;
+  }
+
+  .bloco {
+    margin-top: 70px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(23, 77, 42, 0.18);
+  }
+
+  h2 {
+    margin: 0 0 1.5rem;
+    color: var(--verde-escuro);
+    font-size: 2rem;
+  }
+
+  .bloco p {
+    margin-bottom: 1.3rem;
+  }
+
+  .aviso {
+    margin-top: 60px;
+    padding: 2rem;
+    background: var(--verde-suave);
+    color: var(--verde-escuro);
+  }
+
+  @media (max-width: 768px) {
+    .pagina {
+      padding: 75px 24px;
+    }
+  }
+</style>
+Ctrl + S

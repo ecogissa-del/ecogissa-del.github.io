@@ -1,0 +1,1199 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+
+import fs from 'node:fs';
+import path from 'node:path';
+
+
+/* =========================================================
+   LOCALIZA TODAS AS IMAGENS DE UMA PASTA
+========================================================= */
+
+function imagensDaPasta(pastaRelativa: string): string[] {
+
+  const pastaCompleta = path.join(
+    process.cwd(),
+    'public',
+    pastaRelativa
+  );
+
+  if (!fs.existsSync(pastaCompleta)) {
+    return [];
+  }
+
+  const extensoesPermitidas = [
+    '.jpg',
+    '.jpeg',
+    '.png',
+    '.webp',
+    '.avif'
+  ];
+
+  const imagens: string[] = [];
+
+
+  function percorrerPasta(
+    pastaAtual: string,
+    caminhoPublicoAtual: string
+  ) {
+
+    const itens = fs.readdirSync(
+      pastaAtual,
+      { withFileTypes: true }
+    );
+
+
+    itens.forEach((item: fs.Dirent) => {
+
+      const caminhoCompleto = path.join(
+        pastaAtual,
+        item.name
+      );
+
+      const caminhoPublico =
+        `${caminhoPublicoAtual}/${item.name}`;
+
+
+      if (item.isDirectory()) {
+
+        percorrerPasta(
+          caminhoCompleto,
+          caminhoPublico
+        );
+
+        return;
+      }
+
+
+      const extensao = path
+        .extname(item.name)
+        .toLowerCase();
+
+
+      if (extensoesPermitidas.includes(extensao)) {
+
+        imagens.push(
+          encodeURI(`/${caminhoPublico}`)
+        );
+
+      }
+
+    });
+
+  }
+
+
+  percorrerPasta(
+    pastaCompleta,
+    pastaRelativa
+  );
+
+
+  return imagens.sort();
+}
+
+
+
+/* =========================================================
+   SERVIÇOS DA ECOGIS
+
+   Os nomes em "pasta" correspondem exatamente às pastas em:
+   public/images/servicos/
+========================================================= */
+
+const servicos = [
+
+  {
+    numero: '01',
+    titulo: 'Análise bioacústica',
+    descricao:
+      'Análise de registros acústicos para identificação, monitoramento e avaliação de padrões de atividade da fauna.',
+    pasta: 'Análise bioacústica',
+    alt: 'Análise bioacústica realizada pela ECOGIS'
+  },
+
+  {
+    numero: '02',
+    titulo: 'Análise de dados',
+    descricao:
+      'Tratamento, organização, análise estatística e interpretação de dados ambientais para subsidiar estudos e decisões.',
+    pasta: 'Análise de dados',
+    alt: 'Análise de dados ambientais realizada pela ECOGIS'
+  },
+
+  {
+    numero: '03',
+    titulo: 'Capacitação e palestras',
+    descricao:
+      'Capacitações técnicas, treinamentos, oficinas e palestras voltadas a diferentes públicos e temas ambientais.',
+    pasta: 'Capacitação e palestras',
+    alt: 'Capacitações e palestras ambientais da ECOGIS'
+  },
+
+  {
+    numero: '04',
+    titulo: 'Delineamento amostral',
+    descricao:
+      'Planejamento de desenhos amostrais e estratégias de coleta de dados adequadas aos objetivos de cada projeto.',
+    pasta: 'Delineamento amostral',
+    alt: 'Delineamento amostral para estudos ambientais'
+  },
+
+  {
+    numero: '05',
+    titulo: 'Educação Ambiental',
+    descricao:
+      'Planejamento e execução de ações educativas voltadas à sensibilização, participação e conhecimento socioambiental.',
+    pasta: 'Educação Ambiental',
+    alt: 'Atividades de Educação Ambiental da ECOGIS'
+  },
+
+  {
+    numero: '06',
+    titulo: 'Geoprocessamento e SIG',
+    descricao:
+      'Análises espaciais, elaboração de mapas, processamento de dados geográficos e apoio ao planejamento territorial.',
+    pasta: 'Geoprocessamento-SIG',
+    alt: 'Geoprocessamento e Sistemas de Informação Geográfica'
+  },
+
+  {
+    numero: '07',
+    titulo: 'Hortas e sistemas agroflorestais',
+    descricao:
+      'Planejamento e implantação de hortas, sistemas agroflorestais e soluções produtivas integradas ao meio ambiente.',
+    pasta: 'Implantação de hortas e sistemas agroflorestais',
+    alt: 'Implantação de hortas e sistemas agroflorestais'
+  },
+
+  {
+    numero: '08',
+    titulo: 'Licenciamento Ambiental',
+    descricao:
+      'Apoio técnico para processos de licenciamento ambiental, estudos, levantamentos e documentação técnica.',
+    pasta: 'Licenciamento Ambiental',
+    alt: 'Serviços de Licenciamento Ambiental'
+  },
+
+  {
+    numero: '09',
+    titulo: 'Métodos de monitoramento',
+    descricao:
+      'Desenvolvimento e definição de protocolos e metodologias adequadas ao monitoramento ambiental e da biodiversidade.',
+    pasta: 'Métodos de monitoramento',
+    alt: 'Métodos de monitoramento ambiental'
+  },
+
+  {
+    numero: '10',
+    titulo: 'Monitoramento de Fauna',
+    descricao:
+      'Levantamentos e monitoramento de fauna utilizando metodologias adequadas aos diferentes grupos e objetivos.',
+    pasta: 'Monitoramento de Fauna',
+    alt: 'Monitoramento de fauna realizado pela ECOGIS'
+  },
+
+  {
+    numero: '11',
+    titulo: 'Monitoramento de Flora',
+    descricao:
+      'Levantamentos, caracterização e acompanhamento da vegetação e de componentes da flora.',
+    pasta: 'Monitoramento de Flora',
+    alt: 'Monitoramento de flora realizado pela ECOGIS'
+  },
+
+  {
+    numero: '12',
+    titulo: 'Planejamento de programas ambientais',
+    descricao:
+      'Elaboração e estruturação de programas ambientais, planos de ação, metas, indicadores e estratégias de execução.',
+    pasta: 'Planejamento de programas ambientais',
+    alt: 'Planejamento de programas ambientais'
+  },
+
+  {
+    numero: '13',
+    titulo: 'Materiais educativos e comunicação',
+    descricao:
+      'Produção de cartilhas, materiais educativos, conteúdos técnicos e instrumentos de comunicação socioambiental.',
+    pasta: 'Produção de materiais educativos e comunicação',
+    alt: 'Materiais educativos e comunicação ambiental'
+  },
+
+  {
+    numero: '14',
+    titulo: 'Regularização Ambiental',
+    descricao:
+      'Assessoria técnica para diagnóstico e atendimento de demandas relacionadas à regularização ambiental.',
+    pasta: 'Regularização Ambiental',
+    alt: 'Serviços de Regularização Ambiental'
+  },
+
+  {
+    numero: '15',
+    titulo: 'Serviços para proprietários rurais',
+    descricao:
+      'Soluções ambientais voltadas a propriedades rurais, planejamento territorial, regularização e gestão ambiental.',
+    pasta: 'Serviços para proprietários rurais',
+    alt: 'Serviços ambientais para proprietários rurais'
+  }
+
+].map((servico, index) => ({
+
+  ...servico,
+
+  fotos: imagensDaPasta(
+    `images/servicos/${servico.pasta}`
+  ),
+
+  intervalo: 4200 + (index * 170)
+
+}));
+---
+
+
+<Layout
+  title="ECOGIS | Soluções Ambientais"
+  description="Consultoria ambiental especializada em fauna, geoprocessamento, monitoramento, análise de dados e gestão territorial."
+>
+
+  <Header />
+
+
+  <main>
+
+
+    <!-- =====================================================
+         INÍCIO
+    ====================================================== -->
+
+    <section
+      class="hero"
+      id="inicio"
+    >
+
+      <div class="container">
+
+        <p class="hero-etiqueta">
+          ECOGIS SOLUÇÕES AMBIENTAIS
+        </p>
+
+        <h1>
+          Ciência, tecnologia e conservação aplicadas ao território.
+        </h1>
+
+        <p class="subtitulo">
+          Soluções ambientais integradas para transformar dados,
+          conhecimento científico e planejamento em decisões mais sustentáveis.
+        </p>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         QUEM SOMOS
+    ====================================================== -->
+
+    <section
+      class="quem-somos"
+      id="quem-somos"
+    >
+
+      <div class="quem-somos-container">
+
+
+        <div class="quem-somos-titulo">
+
+          <p class="etiqueta">
+            QUEM SOMOS
+          </p>
+
+          <h2>
+            Conhecimento técnico para soluções ambientais mais eficientes.
+          </h2>
+
+        </div>
+
+
+        <div class="quem-somos-texto">
+
+          <p>
+            A ECOGIS Soluções Ambientais atua no desenvolvimento de soluções
+            técnicas voltadas à conservação da biodiversidade, planejamento
+            territorial e gestão ambiental.
+          </p>
+
+          <p>
+            Integramos ciência, geotecnologias e análise de dados para
+            transformar informações ambientais em estratégias aplicáveis às
+            necessidades de empresas, organizações, proprietários rurais e
+            instituições públicas.
+          </p>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SERVIÇOS
+    ====================================================== -->
+
+    <section
+      class="servicos"
+      id="servicos"
+    >
+
+      <div class="servicos-container">
+
+
+        <div class="servicos-cabecalho">
+
+          <p class="etiqueta">
+            SERVIÇOS
+          </p>
+
+          <h2>
+            Soluções integradas para diferentes desafios ambientais.
+          </h2>
+
+          <p class="servicos-intro">
+            Atuação técnica combinando conhecimento ecológico,
+            geotecnologias, análise de dados e planejamento ambiental.
+          </p>
+
+        </div>
+
+
+
+        <div class="servicos-grid">
+
+
+          {
+            servicos.map((servico) => (
+
+              <article
+                class="servico-card"
+              >
+
+
+                <div class="servico-conteudo">
+
+                  <span class="numero">
+                    {servico.numero}
+                  </span>
+
+                  <h3>
+                    {servico.titulo}
+                  </h3>
+
+                  <p>
+                    {servico.descricao}
+                  </p>
+
+                </div>
+
+
+
+                {
+                  servico.fotos.length > 0 && (
+
+                    <div
+                      class="servico-imagem galeria-rotativa"
+                      data-intervalo={servico.intervalo}
+                    >
+
+
+                      {
+                        servico.fotos.map(
+                          (foto, index) => (
+
+                            <img
+                              src={foto}
+                              alt={`${servico.alt} — imagem ${index + 1}`}
+                              class:list={[
+                                'foto-galeria',
+                                {
+                                  ativa: index === 0
+                                }
+                              ]}
+                              loading={
+                                servico.numero === '01' &&
+                                index === 0
+                                  ? 'eager'
+                                  : 'lazy'
+                              }
+                            />
+
+                          )
+                        )
+                      }
+
+
+
+                      {
+                        servico.fotos.length > 1 && (
+
+                          <div
+                            class="indicadores"
+                            aria-label={`Galeria de ${servico.titulo}`}
+                          >
+
+                            {
+                              servico.fotos.map(
+                                (_, index) => (
+
+                                  <button
+                                    class:list={[
+                                      'indicador',
+                                      {
+                                        ativo:
+                                          index === 0
+                                      }
+                                    ]}
+                                    type="button"
+                                    aria-label={`Mostrar imagem ${index + 1} de ${servico.titulo}`}
+                                    data-indice={index}
+                                  />
+
+                                )
+                              )
+                            }
+
+                          </div>
+
+                        )
+                      }
+
+
+                    </div>
+
+                  )
+                }
+
+
+              </article>
+
+            ))
+          }
+
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =====================================================
+       GALERIAS AUTOMÁTICAS
+  ====================================================== -->
+
+  <script>
+
+    document
+      .querySelectorAll<HTMLElement>('.galeria-rotativa')
+      .forEach((galeria) => {
+
+
+        const fotos = Array.from(
+          galeria.querySelectorAll<HTMLElement>('.foto-galeria')
+        );
+
+
+        const indicadores = Array.from(
+          galeria.querySelectorAll<HTMLButtonElement>('.indicador')
+        );
+
+
+        if (fotos.length <= 1) {
+          return;
+        }
+
+
+        let atual = 0;
+
+
+        const intervalo =
+          Number(
+            galeria.getAttribute(
+              'data-intervalo'
+            )
+          ) || 4500;
+
+
+
+        function mostrarFoto(indice: number) {
+
+          fotos[atual]?.classList.remove(
+            'ativa'
+          );
+
+          indicadores[atual]?.classList.remove(
+            'ativo'
+          );
+
+
+          atual = indice;
+
+
+          fotos[atual]?.classList.add(
+            'ativa'
+          );
+
+          indicadores[atual]?.classList.add(
+            'ativo'
+          );
+
+        }
+
+
+
+        indicadores.forEach(
+          (indicador, indice) => {
+
+            indicador.addEventListener(
+              'click',
+              () => {
+
+                mostrarFoto(indice);
+
+              }
+            );
+
+          }
+        );
+
+
+
+        window.setInterval(
+          () => {
+
+            const proxima =
+              (atual + 1) % fotos.length;
+
+            mostrarFoto(proxima);
+
+          },
+          intervalo
+        );
+
+
+      });
+
+  </script>
+
+
+</Layout>
+
+
+
+<style>
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+.hero {
+
+  min-height: 75vh;
+
+  display: flex;
+  align-items: center;
+
+  background: var(--verde-suave);
+
+}
+
+
+.hero-etiqueta {
+
+  margin-bottom: 1rem;
+
+  color: var(--verde-principal);
+
+  font-size: 0.8rem;
+  font-weight: 700;
+
+  letter-spacing: 0.15em;
+
+}
+
+
+.hero h1 {
+
+  max-width: 850px;
+
+  margin: 0;
+
+  color: var(--verde-escuro);
+
+  font-size:
+    clamp(2.5rem, 6vw, 5rem);
+
+  line-height: 1.05;
+
+  font-weight: 600;
+
+  letter-spacing: -0.04em;
+
+}
+
+
+.subtitulo {
+
+  max-width: 700px;
+
+  margin-top: 1.8rem;
+
+  color: var(--texto-claro);
+
+  font-size: 1.15rem;
+
+  line-height: 1.65;
+
+}
+
+
+
+/* =========================================================
+   QUEM SOMOS
+========================================================= */
+
+.quem-somos {
+
+  background: #ffffff;
+
+  padding: 110px 8%;
+
+}
+
+
+.quem-somos-container {
+
+  max-width: 1120px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 90px;
+
+  align-items: start;
+
+}
+
+
+.etiqueta {
+
+  margin: 0 0 1.5rem;
+
+  color: var(--verde-principal);
+
+  font-size: 0.8rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.15em;
+
+}
+
+
+.quem-somos h2 {
+
+  margin: 0;
+
+  color: var(--verde-escuro);
+
+  font-size:
+    clamp(2rem, 4vw, 3.2rem);
+
+  line-height: 1.1;
+
+  letter-spacing: -0.03em;
+
+}
+
+
+.quem-somos-texto {
+
+  padding-top: 2.8rem;
+
+}
+
+
+.quem-somos-texto p {
+
+  margin: 0 0 1.4rem;
+
+  color: var(--texto-claro);
+
+  font-size: 1.08rem;
+
+  line-height: 1.8;
+
+}
+
+
+
+/* =========================================================
+   SERVIÇOS
+========================================================= */
+
+.servicos {
+
+  padding: 110px 8%;
+
+  background: #f1f7f2;
+
+}
+
+
+.servicos-container {
+
+  max-width: 1120px;
+
+  margin: 0 auto;
+
+}
+
+
+.servicos-cabecalho {
+
+  max-width: 720px;
+
+  margin-bottom: 65px;
+
+}
+
+
+.servicos-cabecalho h2 {
+
+  margin: 0 0 1.5rem;
+
+  color: var(--verde-escuro);
+
+  font-size:
+    clamp(2rem, 4vw, 3.2rem);
+
+  line-height: 1.1;
+
+  letter-spacing: -0.03em;
+
+}
+
+
+.servicos-intro {
+
+  margin: 0;
+
+  color: var(--texto-claro);
+
+  font-size: 1.08rem;
+
+  line-height: 1.7;
+
+}
+
+
+
+/* =========================================================
+   GRADE DOS SERVIÇOS
+========================================================= */
+
+.servicos-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  border-top:
+    1px solid
+    rgba(23, 77, 42, 0.18);
+
+}
+
+
+.servico-card {
+
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  border-bottom:
+    1px solid
+    rgba(23, 77, 42, 0.18);
+
+}
+
+
+.servico-card:nth-child(3n + 2),
+.servico-card:nth-child(3n + 3) {
+
+  border-left:
+    1px solid
+    rgba(23, 77, 42, 0.18);
+
+}
+
+
+
+/* =========================================================
+   TEXTO DOS CARDS
+========================================================= */
+
+.servico-conteudo {
+
+  min-height: 270px;
+
+  padding: 40px 35px;
+
+}
+
+
+.servico-card:nth-child(3n + 1)
+.servico-conteudo {
+
+  padding-left: 0;
+
+}
+
+
+.numero {
+
+  display: block;
+
+  margin-bottom: 35px;
+
+  color: var(--verde-principal);
+
+  font-size: 0.75rem;
+
+  font-weight: 700;
+
+}
+
+
+.servico-card h3 {
+
+  margin: 0 0 1rem;
+
+  color: var(--verde-escuro);
+
+  font-size: 1.3rem;
+
+  line-height: 1.25;
+
+}
+
+
+.servico-card p {
+
+  margin: 0;
+
+  color: var(--texto-claro);
+
+  line-height: 1.7;
+
+}
+
+
+
+/* =========================================================
+   GALERIAS
+========================================================= */
+
+.servico-imagem {
+
+  position: relative;
+
+  width: 100%;
+
+  aspect-ratio: 16 / 10;
+
+  margin-top: auto;
+
+  overflow: hidden;
+
+  background: #dfe9e1;
+
+}
+
+
+.foto-galeria {
+
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  opacity: 0;
+
+  transform: scale(1.01);
+
+  transition:
+    opacity 0.9s ease,
+    transform 5.5s ease;
+
+}
+
+
+.foto-galeria.ativa {
+
+  opacity: 1;
+
+  transform: scale(1.055);
+
+}
+
+
+.servico-imagem::after {
+
+  content: '';
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(4, 46, 21, 0.15),
+      transparent 45%
+    );
+
+}
+
+
+
+/* =========================================================
+   INDICADORES
+========================================================= */
+
+.indicadores {
+
+  position: absolute;
+
+  z-index: 5;
+
+  left: 20px;
+
+  bottom: 18px;
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+  max-width:
+    calc(100% - 40px);
+
+}
+
+
+.indicador {
+
+  width: 7px;
+
+  height: 7px;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.58);
+
+  cursor: pointer;
+
+  transition:
+    width 0.25s ease,
+    background 0.25s ease;
+
+}
+
+
+.indicador:hover {
+
+  background:
+    rgba(255, 255, 255, 0.9);
+
+}
+
+
+.indicador.ativo {
+
+  width: 22px;
+
+  border-radius: 20px;
+
+  background: #ffffff;
+
+}
+
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+
+  .servicos-grid {
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+  }
+
+
+  .servico-card:nth-child(3n + 2),
+  .servico-card:nth-child(3n + 3) {
+
+    border-left: none;
+
+  }
+
+
+  .servico-card:nth-child(even) {
+
+    border-left:
+      1px solid
+      rgba(23, 77, 42, 0.18);
+
+  }
+
+
+  .servico-conteudo,
+  .servico-card:nth-child(3n + 1)
+  .servico-conteudo {
+
+    padding: 35px 25px;
+
+  }
+
+
+}
+
+
+
+/* =========================================================
+   CELULAR / QUEM SOMOS
+========================================================= */
+
+@media (max-width: 768px) {
+
+
+  .quem-somos {
+
+    padding: 70px 24px;
+
+  }
+
+
+  .quem-somos-container {
+
+    grid-template-columns: 1fr;
+
+    gap: 25px;
+
+  }
+
+
+  .quem-somos-texto {
+
+    padding-top: 0;
+
+  }
+
+
+}
+
+
+
+/* =========================================================
+   CELULAR / SERVIÇOS
+========================================================= */
+
+@media (max-width: 600px) {
+
+
+  .servicos {
+
+    padding:
+      70px 24px;
+
+  }
+
+
+  .servicos-grid {
+
+    grid-template-columns: 1fr;
+
+  }
+
+
+  .servico-card,
+  .servico-card:nth-child(even) {
+
+    border-left: none;
+
+  }
+
+
+  .servico-conteudo,
+  .servico-card:nth-child(3n + 1)
+  .servico-conteudo {
+
+    min-height: auto;
+
+    padding: 32px 0;
+
+  }
+
+
+  .servico-imagem {
+
+    aspect-ratio: 4 / 3;
+
+  }
+
+
+}
+
+
+</style>

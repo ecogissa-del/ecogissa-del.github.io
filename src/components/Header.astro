@@ -1,0 +1,457 @@
+---
+const menuItems = [
+  {
+    label: 'Início',
+    href: '/'
+  },
+  {
+    label: 'Quem Somos',
+    href: '/#quem-somos'
+  },
+  {
+    label: 'Serviços',
+    href: '/#servicos'
+  },
+  {
+    label: 'Projetos',
+    href: '/projetos'
+  },
+  {
+    label: 'Equipe',
+    href: '/equipe'
+  },
+  {
+    label: 'Publicações',
+    href: '/publicacoes'
+  },
+  {
+    label: 'Blog',
+    href: '/blog'
+  },
+  {
+    label: 'Contato',
+    href: '/contato'
+  }
+];
+---
+
+<header class="header">
+
+  <div class="header-container">
+
+    <!-- LOGOTIPO -->
+
+    <a
+      href="/"
+      class="logo"
+      aria-label="ECOGIS - Página inicial"
+    >
+      <img
+        src="/logos/ecogis-logo.png"
+        alt="ECOGIS Soluções Ambientais"
+      />
+    </a>
+
+
+    <!-- BOTÃO MOBILE -->
+
+    <button
+      class="menu-toggle"
+      aria-label="Abrir menu"
+      aria-expanded="false"
+      type="button"
+    >
+
+      <span></span>
+      <span></span>
+      <span></span>
+
+    </button>
+
+
+    <!-- MENU -->
+
+    <nav
+      class="navigation"
+      aria-label="Navegação principal"
+    >
+
+      {
+        menuItems.map((item) => (
+
+          <a href={item.href}>
+            {item.label}
+          </a>
+
+        ))
+      }
+
+    </nav>
+
+  </div>
+
+</header>
+
+
+<script>
+
+  const button =
+    document.querySelector<HTMLButtonElement>(
+      '.menu-toggle'
+    );
+
+  const navigation =
+    document.querySelector<HTMLElement>(
+      '.navigation'
+    );
+
+
+  button?.addEventListener(
+    'click',
+    () => {
+
+      navigation?.classList.toggle(
+        'active'
+      );
+
+
+      const expanded =
+        button.getAttribute(
+          'aria-expanded'
+        ) === 'true';
+
+
+      button.setAttribute(
+        'aria-expanded',
+        String(!expanded)
+      );
+
+    }
+  );
+
+
+  /*
+    Fecha o menu mobile depois
+    que algum link é selecionado.
+  */
+
+  document
+    .querySelectorAll(
+      '.navigation a'
+    )
+    .forEach((link) => {
+
+      link.addEventListener(
+        'click',
+        () => {
+
+          navigation?.classList.remove(
+            'active'
+          );
+
+          button?.setAttribute(
+            'aria-expanded',
+            'false'
+          );
+
+        }
+      );
+
+    });
+
+</script>
+
+
+<style>
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header {
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 1000;
+
+  width: 100%;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.97
+    );
+
+  border-bottom:
+    1px solid
+    rgba(
+      23,
+      77,
+      42,
+      0.08
+    );
+
+  backdrop-filter:
+    blur(12px);
+
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.header-container {
+
+  width:
+    min(
+      92%,
+      1300px
+    );
+
+  height: 88px;
+
+  margin:
+    0 auto;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content:
+    space-between;
+
+  gap: 2rem;
+
+}
+
+
+/* =========================================================
+   LOGOTIPO
+========================================================= */
+
+.logo {
+
+  display: flex;
+
+  align-items: center;
+
+  flex-shrink: 0;
+
+}
+
+
+.logo img {
+
+  width: 92px;
+
+  height: 72px;
+
+  object-fit:
+    contain;
+
+}
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+.navigation {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 1.7rem;
+
+}
+
+
+.navigation a {
+
+  position: relative;
+
+  color:
+    var(--texto);
+
+  font-family:
+    var(--fonte-texto);
+
+  font-size:
+    0.88rem;
+
+  font-weight: 500;
+
+  white-space:
+    nowrap;
+
+  transition:
+    color
+    0.25s ease;
+
+}
+
+
+.navigation a::after {
+
+  content: '';
+
+  position: absolute;
+
+  left: 0;
+
+  bottom: -8px;
+
+  width: 0;
+
+  height: 2px;
+
+  background:
+    var(--verde-principal);
+
+  transition:
+    width
+    0.25s ease;
+
+}
+
+
+.navigation a:hover {
+
+  color:
+    var(--verde-principal);
+
+}
+
+
+.navigation a:hover::after {
+
+  width: 100%;
+
+}
+
+
+/* =========================================================
+   BOTÃO MOBILE
+========================================================= */
+
+.menu-toggle {
+
+  display: none;
+
+  width: 42px;
+
+  height: 42px;
+
+  padding: 0;
+
+  border: 0;
+
+  background:
+    transparent;
+
+  cursor: pointer;
+
+}
+
+
+.menu-toggle span {
+
+  display: block;
+
+  width: 25px;
+
+  height: 2px;
+
+  margin:
+    5px auto;
+
+  background:
+    var(--verde-escuro);
+
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 1050px) {
+
+  .menu-toggle {
+
+    display: block;
+
+  }
+
+
+  .navigation {
+
+    position: absolute;
+
+    top: 88px;
+
+    left: 0;
+
+    display: none;
+
+    width: 100%;
+
+    padding:
+      1.5rem
+      5%
+      2rem;
+
+    flex-direction:
+      column;
+
+    align-items:
+      flex-start;
+
+    gap: 1.3rem;
+
+    background:
+      #ffffff;
+
+    border-top:
+      1px solid
+      #eeeeee;
+
+    box-shadow:
+      0
+      15px
+      30px
+      rgba(
+        0,
+        0,
+        0,
+        0.08
+      );
+
+  }
+
+
+  .navigation.active {
+
+    display: flex;
+
+  }
+
+
+  .navigation a {
+
+    width: 100%;
+
+    font-size:
+      1rem;
+
+  }
+
+}
+
+</style>

@@ -1,0 +1,178 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+
+<Layout
+  title="Contato | ECOGIS"
+  description="Entre em contato com a ECOGIS Soluções Ambientais."
+>
+  <Header />
+
+  <main>
+    <section class="pagina">
+      <div class="container-pagina">
+
+        <p class="etiqueta">
+          CONTATO
+        </p>
+
+        <h1>
+          Vamos conversar sobre o seu projeto?
+        </h1>
+
+        <p class="introducao">
+          Entre em contato para solicitar informações, conversar sobre uma
+          demanda ambiental ou solicitar uma proposta técnica e comercial.
+        </p>
+
+        <div class="contato-grid">
+
+          <div class="contato-bloco">
+
+            <p class="rotulo">
+              EMPRESA
+            </p>
+
+            <h2>
+              ECOGIS Soluções Ambientais
+            </h2>
+
+            <p>
+              CNPJ: 66.575.265/0001-26
+            </p>
+
+            <p>
+              Taubaté — São Paulo
+            </p>
+
+          </div>
+
+          <div class="contato-bloco">
+
+            <p class="rotulo">
+              ATENDIMENTO
+            </p>
+
+            <h2>
+              Soluções ambientais sob medida.
+            </h2>
+
+            <p>
+              A ECOGIS atende empresas, instituições, organizações,
+              proprietários rurais e outros clientes que necessitem de
+              suporte técnico especializado em questões ambientais.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="aviso">
+          E-mail, WhatsApp, Instagram e formulário de contato serão
+          adicionados em uma próxima etapa.
+        </div>
+
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .pagina {
+    min-height: 80vh;
+    padding: 110px 8%;
+    background: #ffffff;
+  }
+
+  .container-pagina {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .etiqueta {
+    margin: 0 0 1.5rem;
+    color: var(--verde-principal);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+  }
+
+  h1 {
+    max-width: 850px;
+    margin: 0 0 2rem;
+    color: var(--verde-escuro);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+  }
+
+  .introducao {
+    max-width: 760px;
+    color: var(--texto-claro);
+    font-size: 1.08rem;
+    line-height: 1.8;
+  }
+
+  .contato-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 70px;
+    border-top: 1px solid rgba(23, 77, 42, 0.18);
+  }
+
+  .contato-bloco {
+    padding: 45px 45px 45px 0;
+  }
+
+  .contato-bloco + .contato-bloco {
+    padding-left: 45px;
+    border-left: 1px solid rgba(23, 77, 42, 0.18);
+  }
+
+  .rotulo {
+    margin-bottom: 2rem;
+    color: var(--verde-principal);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  h2 {
+    margin: 0 0 1.5rem;
+    color: var(--verde-escuro);
+    font-size: 2rem;
+  }
+
+  .contato-bloco p:not(.rotulo) {
+    color: var(--texto-claro);
+    line-height: 1.8;
+  }
+
+  .aviso {
+    margin-top: 50px;
+    padding: 2rem;
+    background: var(--verde-suave);
+    color: var(--verde-escuro);
+  }
+
+  @media (max-width: 768px) {
+    .pagina {
+      padding: 75px 24px;
+    }
+
+    .contato-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contato-bloco {
+      padding: 35px 0;
+    }
+
+    .contato-bloco + .contato-bloco {
+      padding-left: 0;
+      border-left: none;
+      border-top: 1px solid rgba(23, 77, 42, 0.18);
+    }
+  }
+</style>

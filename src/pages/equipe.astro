@@ -1,0 +1,137 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+
+<Layout
+  title="Equipe | ECOGIS"
+  description="Conheça a equipe técnica da ECOGIS Soluções Ambientais."
+>
+  <Header />
+
+  <main>
+    <section class="pagina">
+      <div class="container-pagina">
+
+        <p class="etiqueta">
+          EQUIPE
+        </p>
+
+        <h1>
+          Diferentes especialidades integradas para soluções ambientais.
+        </h1>
+
+        <p class="introducao">
+          A ECOGIS trabalha com uma rede de profissionais e especialistas
+          selecionados de acordo com as características e necessidades de
+          cada projeto.
+        </p>
+
+        <div class="conteudo">
+
+          <h2>
+            Equipe multidisciplinar
+          </h2>
+
+          <p>
+            Nossa atuação pode reunir profissionais das áreas de ecologia,
+            biologia, fauna, flora, geoprocessamento, análise de dados,
+            educação ambiental, planejamento territorial e outras
+            especialidades complementares.
+          </p>
+
+          <p>
+            Essa estrutura permite formar equipes técnicas adequadas ao
+            escopo de cada trabalho, garantindo maior integração entre as
+            diferentes etapas dos projetos.
+          </p>
+
+          <h2>
+            Coordenação técnica
+          </h2>
+
+          <p>
+            A coordenação dos trabalhos busca integrar planejamento,
+            execução de campo, organização de dados, análises técnicas e
+            elaboração de produtos finais de forma clara, organizada e
+            tecnicamente fundamentada.
+          </p>
+
+        </div>
+
+        <div class="aviso">
+          Os perfis individuais da equipe serão adicionados em breve.
+        </div>
+
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .pagina {
+    min-height: 80vh;
+    padding: 110px 8%;
+    background: var(--verde-suave);
+  }
+
+  .container-pagina {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .etiqueta {
+    margin: 0 0 1.5rem;
+    color: var(--verde-principal);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+  }
+
+  h1 {
+    max-width: 850px;
+    margin: 0 0 2rem;
+    color: var(--verde-escuro);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+  }
+
+  .introducao,
+  .conteudo p {
+    max-width: 760px;
+    color: var(--texto-claro);
+    font-size: 1.08rem;
+    line-height: 1.8;
+  }
+
+  .conteudo {
+    margin-top: 70px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(23, 77, 42, 0.18);
+  }
+
+  h2 {
+    margin: 2.5rem 0 1rem;
+    color: var(--verde-escuro);
+    font-size: 2rem;
+  }
+
+  .conteudo p {
+    margin-bottom: 1.3rem;
+  }
+
+  .aviso {
+    margin-top: 60px;
+    padding: 2rem;
+    background: #ffffff;
+    color: var(--verde-escuro);
+  }
+
+  @media (max-width: 768px) {
+    .pagina {
+      padding: 75px 24px;
+    }
+  }
+</style>
+Ctrl + S

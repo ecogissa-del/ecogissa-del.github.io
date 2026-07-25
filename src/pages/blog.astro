@@ -1,0 +1,128 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+
+<Layout
+  title="Blog | ECOGIS"
+  description="Notícias, conteúdos ambientais e informações técnicas da ECOGIS."
+>
+  <Header />
+
+  <main>
+    <section class="pagina">
+      <div class="container-pagina">
+
+        <p class="etiqueta">
+          BLOG
+        </p>
+
+        <h1>
+          Informação ambiental para além dos projetos.
+        </h1>
+
+        <p class="introducao">
+          O blog da ECOGIS será um espaço de divulgação de conhecimento,
+          experiências profissionais, notícias e conteúdos relacionados ao
+          meio ambiente.
+        </p>
+
+        <div class="conteudo">
+
+          <h2>
+            Conteúdo técnico e científico
+          </h2>
+
+          <p>
+            Serão publicados conteúdos sobre fauna, flora, conservação,
+            geoprocessamento, análise de dados, monitoramento ambiental,
+            legislação, educação ambiental e planejamento territorial.
+          </p>
+
+          <h2>
+            Projetos e atividades
+          </h2>
+
+          <p>
+            O espaço também poderá apresentar experiências de campo,
+            bastidores de projetos, registros fotográficos, eventos e
+            atualizações sobre trabalhos realizados pela ECOGIS.
+          </p>
+
+        </div>
+
+        <div class="aviso">
+          As primeiras publicações serão adicionadas em breve.
+        </div>
+
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .pagina {
+    min-height: 80vh;
+    padding: 110px 8%;
+    background: var(--verde-suave);
+  }
+
+  .container-pagina {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .etiqueta {
+    margin: 0 0 1.5rem;
+    color: var(--verde-principal);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+  }
+
+  h1 {
+    max-width: 850px;
+    margin: 0 0 2rem;
+    color: var(--verde-escuro);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+  }
+
+  .introducao,
+  .conteudo p {
+    max-width: 760px;
+    color: var(--texto-claro);
+    font-size: 1.08rem;
+    line-height: 1.8;
+  }
+
+  .conteudo {
+    margin-top: 70px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(23, 77, 42, 0.18);
+  }
+
+  h2 {
+    margin: 2.5rem 0 1rem;
+    color: var(--verde-escuro);
+    font-size: 2rem;
+  }
+
+  .conteudo p {
+    margin-bottom: 1.3rem;
+  }
+
+  .aviso {
+    margin-top: 60px;
+    padding: 2rem;
+    background: #ffffff;
+    color: var(--verde-escuro);
+  }
+
+  @media (max-width: 768px) {
+    .pagina {
+      padding: 75px 24px;
+    }
+  }
+</style>
